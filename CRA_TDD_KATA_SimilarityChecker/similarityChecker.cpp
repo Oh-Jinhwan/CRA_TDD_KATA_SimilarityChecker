@@ -48,23 +48,20 @@ private :
 		return MAX_LENGTH_POINT * 2 - (str2Size * MAX_LENGTH_POINT / str1Size);
 	}
 
+	int beFound(string str1, char alphabet)
+	{
+		for (char ch1 : str1) {
+			if (alphabet == ch1) return 1;
+		}
+		return 0;
+	}
+
 	AlphabetCheckResult getSameAndTotalCount(string str1, string str2)
 	{
 		AlphabetCheckResult result = { 0,0 };
 		for (char alphabet = 'A'; alphabet <= 'Z'; alphabet++) {
 			int found = 0;
-			for (char ch1 : str1) {
-				if (alphabet == ch1) {
-					found++;
-					break;
-				}
-			}
-			for (char ch2 : str2) {
-				if (alphabet == ch2) {
-					found++;
-					break;
-				}
-			}
+			found = beFound(str1, alphabet) + beFound(str2, alphabet);
 			if (found >= 1) result.totalCnt++;
 			if (found == 2) result.sameCnt++;
 		}
