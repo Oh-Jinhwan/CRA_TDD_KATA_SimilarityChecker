@@ -4,6 +4,9 @@ using namespace std;
 class SimilarityChecker
 {
 public:
+	const int MAX_LENGTH_POINT = 60;
+	const int MIN_LENGTH_POINT = 0;
+
 	int checkSimilarity(string str1, string str2)
 	{
 		return checkLength(str1, str2) + checkAlphabet(str1, str2);
@@ -11,8 +14,8 @@ public:
 
 	int checkLength(string str1, string str2)
 	{
-		if (isSameLength(str1.size(), str2.size())) return 60;
-		if (isInvalidLengthDiff(str1.size(), str2.size())) return 0;
+		if (isSameLength(str1.size(), str2.size())) return MAX_LENGTH_POINT;
+		if (isInvalidLengthDiff(str1.size(), str2.size())) return MIN_LENGTH_POINT;
 		return getLengthPoint(str1.size(), str2.size());
 	}
 
@@ -36,7 +39,7 @@ private :
 
 	int getLengthPoint(int str1Size, int str2Size)
 	{
-		if (str1Size > str2Size) return 120 - (str1Size * 60 / str2Size);
-		return 120 - (str2Size * 60 / str1Size);
+		if (str1Size > str2Size) return (MAX_LENGTH_POINT * 2) - (str1Size * MAX_LENGTH_POINT / str2Size);
+		return MAX_LENGTH_POINT * 2 - (str2Size * MAX_LENGTH_POINT / str1Size);
 	}
 };
