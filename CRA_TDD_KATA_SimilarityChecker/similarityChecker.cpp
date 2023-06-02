@@ -60,8 +60,7 @@ private :
 	{
 		AlphabetCheckResult result = { 0,0 };
 		for (char alphabet = 'A'; alphabet <= 'Z'; alphabet++) {
-			int found = 0;
-			found = beFound(str1, alphabet) + beFound(str2, alphabet);
+			int found = beFound(str1, alphabet) + beFound(str2, alphabet);
 			if (found >= 1) result.totalCnt++;
 			if (found == 2) result.sameCnt++;
 		}
