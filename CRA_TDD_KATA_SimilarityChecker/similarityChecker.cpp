@@ -20,19 +20,17 @@ public:
 		return getLengthPoint(str1.size(), str2.size());
 	}
 
-
 	int checkAlphabet(string str1, string str2)
 	{
-		int sameCnt = 0;
-		int totalCnt = 0;
+		AlphabetCheckResult result = getSameAndTotalCount(str1, str2);
 
-		getSameAndTotalCount(str1, str2, sameCnt, totalCnt);
-
-		if (totalCnt == 0) return 0;
-		return sameCnt * MAX_ALPHABET_POINT / totalCnt;
+		if (result.totalCnt == 0) return 0;
+		return result.sameCnt * MAX_ALPHABET_POINT / result.totalCnt;
 	}
 
 private :
+	struct AlphabetCheckResult { int sameCnt, totalCnt; };
+
 	bool isSameLength(int str1Size, int str2Size)
 	{
 		return (str1Size == str2Size);
@@ -50,8 +48,9 @@ private :
 		return MAX_LENGTH_POINT * 2 - (str2Size * MAX_LENGTH_POINT / str1Size);
 	}
 
-	void getSameAndTotalCount(string str1, string str2, int& sameCnt, int& totalCnt)
+	AlphabetCheckResult getSameAndTotalCount(string str1, string str2)
 	{
+		AlphabetCheckResult result = { 0,0 };
 		for (char alphabet = 'A'; alphabet <= 'Z'; alphabet++) {
 			int found = 0;
 			for (char ch1 : str1) {
@@ -66,8 +65,9 @@ private :
 					break;
 				}
 			}
-			if (found >= 1) totalCnt++;
-			if (found == 2) sameCnt++;
+			if (found >= 1) result.totalCnt++;
+			if (found == 2) result.sameCnt++;
 		}
+		return result;
 	}
 };
